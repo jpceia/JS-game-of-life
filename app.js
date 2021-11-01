@@ -22,82 +22,28 @@ function gridCopy(grid)
     return cpy
 }
 
+function mod(n, m) {
+    return ((n % m) + m) % m;
+}
+
 function getLivingNeighbours(grid, i, j)
 {
     let n = 0;
-    let up_bound = i == 0;
-    let left_bound = j == 0;
-    let right_bound = j == grid[0].length - 1;
-    let bottom_bound = i == grid.length - 1;
+    let w = grid[0].length;
+    let h = grid.length;
+    let i_d = mod(i-1, h);
+    let i_u = mod(i+1, h);
+    let j_l = mod(j-1, w);
+    let j_r = mod(j+1, w);
 
-    if (up_bound)
-    {
-        n += grid[i+1][j]
-        if (left_bound)
-        {
-            n += grid[i][j+1]
-            n += grid[i+1][j+1]
-        }
-        else if (right_bound)
-        {
-            n += grid[i][j-1]
-            n += grid[i+1][j-1]
-        }
-        else
-        {
-            n += grid[i][j-1]
-            n += grid[i][j+1]
-            n += grid[i+1][j-1]
-            n += grid[i+1][j+1]
-        }
-    }
-    else if (bottom_bound)
-    {
-        n += grid[i-1][j]
-        if (left_bound)
-        {
-            n += grid[i-1][j+1]
-            n += grid[i][j+1]
-        }
-        else if (right_bound)
-        {
-            n += grid[i-1][j-1]
-            n += grid[i][j-1]
-        }
-        else
-        {
-            n += grid[i-1][j-1]
-            n += grid[i-1][j+1]
-            n += grid[i][j-1]
-            n += grid[i][j+1]
-        }
-    }
-    else
-    {
-        n += grid[i-1][j]
-        n += grid[i+1][j]
-        if (left_bound)
-        {
-            n += grid[i-1][j+1]
-            n += grid[i][j+1]
-            n += grid[i+1][j+1]
-        }
-        else if (right_bound)
-        {
-            n += grid[i-1][j-1]
-            n += grid[i][j-1]
-            n += grid[i+1][j-1]
-        }
-        else
-        {
-            n += grid[i-1][j-1]
-            n += grid[i-1][j+1]
-            n += grid[i][j-1]
-            n += grid[i][j+1]
-            n += grid[i+1][j-1]
-            n += grid[i+1][j+1]
-        }
-    }
+    n += grid[i_d][j]
+    n += grid[i_u][j]
+    n += grid[i_d][j_l]
+    n += grid[i_d][j_r]
+    n += grid[i][j_l]
+    n += grid[i][j_r]
+    n += grid[i_u][j_l]
+    n += grid[i_u][j_r]
     return n
 }
 
